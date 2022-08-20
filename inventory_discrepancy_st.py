@@ -11,7 +11,7 @@ DATA_URL_counted = ("https://storage.googleapis.com/mojix-devops-wildfire-bucket
 
 @st.cache
 def load_data(url):
-    data = pd.read_csv(url)
+    data = pd.read_csv(url, encoding="latin-1", dtype=str)
     return data
 
 data_load_state = st.text('Loading data...')
