@@ -10,29 +10,17 @@ DATA_URL_expected = ("https://storage.googleapis.com/mojix-devops-wildfire-bucke
 
 DATA_URL_counted = ("https://storage.googleapis.com/mojix-devops-wildfire-bucket/analytics/bootcamp_2_0/Bootcamp_DataAnalysis_Counted.csv")
 
-#@st.cache
+@st.cache
 def load_data(url):
-    data = pd.read_csv(url, encoding="latin-1", dtype=str)
+    with st.spinner(text='In progress'):
+        data = pd.read_csv(url, encoding="latin-1", dtype=str)
+        time.sleep(2)
+        st.success("Done! loaded!")
     return data
 
-with st.spinner(text='In progress'):
-    data_expected = load_data(DATA_URL_expected)
-    time.sleep(5)
-    st.success("Done! df_expected loaded!")
-
-with st.spinner(text='In progress'):
-    data_counted = load_data(DATA_URL_counted)
-    time.sleep(5)
-    st.success("Done! df_counted loaded!")
-'''
-data_load_state = st.text('Loading data...')
-
-data_load_state.text("Done! df_expected loaded! (using st.cache)")
-
-data_load_state = st.text('Loading data...')
+data_expected = load_data(DATA_URL_expected)
 data_counted = load_data(DATA_URL_counted)
-data_load_state.text("Done! df_counted loaded! (using st.cache)")
-'''
+
 if st.checkbox('Show raw data expected'):
     st.subheader('Raw data expected')
     st.write(data_expected)
