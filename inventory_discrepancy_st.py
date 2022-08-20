@@ -16,11 +16,11 @@ def load_data(url):
 
 data_load_state = st.text('Loading data...')
 data_expected = load_data(DATA_URL_expected)
-data_load_state.text("Done! (using st.cache)")
+data_load_state.text("Done! df_expected loaded! (using st.cache)")
 
 data_load_state = st.text('Loading data...')
 data_counted = load_data(DATA_URL_counted)
-data_load_state.text("Done! (using st.cache)")
+data_load_state.text("Done! df_counted loaded! (using st.cache)")
 
 if st.checkbox('Show raw data expected'):
     st.subheader('Raw data expected')
