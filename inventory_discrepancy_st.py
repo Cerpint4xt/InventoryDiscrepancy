@@ -98,9 +98,16 @@ if st.checkbox('Show data frame Discrepancy with Accuracy Calculation'):
 
 st.markdown('---')
 
+options = st.multiselect(
+     'Select your Retail_Product_Name Items',
+     df_discrepancy['Retail_Product_Name'],
+     [])
+
+st.write('You selected:', options)
+
 df_discrepancy_plot = df_discrepancy.groupby("Retail_Product_Name").sum()
 df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
-st.bar_chart(df_discrepancy_plot, "Retail_Product_Name", "Values")
+st.bar_chart(df_discrepancy_plot)
 
 
 
