@@ -105,9 +105,9 @@ options = st.multiselect(
 
 st.write('You selected:', options)
 
-df_discrepancy_plot = df_discrepancy.groupby("Retail_Product_Name").sum()[options]
+df_discrepancy_plot = df_discrepancy.groupby("Retail_Product_Name").sum()
 df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
-st.bar_chart(df_discrepancy_plot)
+st.bar_chart(df_discrepancy_plot.loc[options])
 
 
 
