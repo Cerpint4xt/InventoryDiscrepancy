@@ -74,6 +74,12 @@ df_discrepancy["UnitLevelAccuracy"] = ((df_discrepancy["Retail_SOHQTY"] - df_dis
 df_discrepancy["UnitLevelAccuracy"].replace([np.inf, -np.inf], np.nan, inplace=True)
 df_discrepancy["UnitLevelAccuracy"] = df_discrepancy["UnitLevelAccuracy"].fillna(0)
 
-st.dataframe(df_discrepancy.groupby("Retail_Product_Name").sum())
+
+st.markdown('---')
+if st.checkbox('Show data frame Discrepancy with Accuracy Calculation'):
+    st.subheader('Data discrepancy with Match, Unders, Overs, SKUAccuracy, ItemAccuracy, UnitLevelAccuracy')
+    st.dataframe(df_discrepancy.groupby("Retail_Product_Name").sum())
+
+
 
 
