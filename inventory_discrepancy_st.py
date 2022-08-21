@@ -35,6 +35,7 @@ df_counted = df_counted.drop_duplicates('RFID')
 df_B = df_counted.groupby("Retail_Product_SKU").count()[["RFID"]].reset_index().rename(columns={"RFID":"Retail_CCQTY"})
 
 my_col_selected = ["Retail_Product_Name",
+                   "Retail_Product_SKU",
                    "Retail_SOHQTY"]
 
 df_expected = data_expected
