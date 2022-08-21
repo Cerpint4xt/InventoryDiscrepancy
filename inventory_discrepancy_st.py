@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import seaborn as sns 
+import matplotlib.pyplot as plt 
 import time
+
 
 pd.set_option('display.precision', 1)
 
@@ -19,14 +22,16 @@ def load_data(url):
         st.success(f"Done! CSV: {url} loaded!")
     return data
 
+st.markdown('---')
+
 data_expected = load_data(DATA_URL_expected)
 data_counted = load_data(DATA_URL_counted)
 
-if st.checkbox('Show raw data expected'):
+if st.checkbox('Show raw data expected :arrow_down_small:'):
     st.subheader('Raw data expected')
     st.write(data_expected)
 
-if st.checkbox('Show raw data counted'):
+if st.checkbox('Show raw data counted :arrow_down_small:'):
     st.subheader('Raw data counted')
     st.write(data_counted)
 
@@ -38,6 +43,9 @@ df_B = df_counted.groupby("Retail_Product_SKU").count()[["RFID"]].reset_index().
 
 my_col_selected = ["Retail_Product_Name",
                    "Retail_Product_SKU",
+                   "Retail_Product_Size",
+                   "Retail_Product_Style",
+                   "Retail_Product_Color",
                    "Retail_SOHQTY"]
 
 df_expected = data_expected
@@ -59,7 +67,7 @@ df_discrepancy_enriched = df_discrepancy.groupby("Retail_Product_Name").sum()
 
 
 if st.checkbox('Show data frame Discrepancy'):
-    st.subheader('Data discrepancy with Match, Unders, Overs')
+    st.subheader('Data discrepancy with Match, Unders, Overs :arrow_down_small:')
     st.write(df_discrepancy_enriched)
 
 df_discrepancy["SKUAccuracy"] = (df_discrepancy["Match"] / df_discrepancy["Retail_SOHQTY"]) * 100
@@ -76,9 +84,19 @@ df_discrepancy["UnitLevelAccuracy"] = df_discrepancy["UnitLevelAccuracy"].fillna
 
 
 st.markdown('---')
-if st.checkbox('Show data frame Discrepancy with Accuracy Calculation'):
+if st.checkbox('Show data frame Discrepancy with Accuracy Calculation :arrow_down_small:'):
     st.subheader('Data discrepancy with Match, Unders, Overs, SKUAccuracy, ItemAccuracy, UnitLevelAccuracy')
     st.dataframe(df_discrepancy.groupby("Retail_Product_Name").sum())
+
+st.markdown('---')
+df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
+st.bar_chart(df_discrepancy_plot)
+
+fig1 = plt.figure(figsize=(10,4))
+sns.countplot(x='Pclass', data=df_discrepancy_plot)
+st.pyplot(fig1)
+
+
 
 
 
