@@ -14,7 +14,7 @@ def load_data(url):
     with st.spinner(text='In progress'):
         data = pd.read_csv(url, encoding="latin-1", dtype=str)
         time.sleep(2)
-        st.success("Done! loaded!")
+        st.success(f"Done! CSV: {url} loaded!")
     return data
 
 data_expected = load_data(DATA_URL_expected)
