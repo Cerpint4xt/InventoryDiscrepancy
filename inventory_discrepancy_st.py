@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import seaborn as sns 
 import matplotlib.pyplot as plt 
 import time
 
@@ -92,9 +91,7 @@ st.markdown('---')
 df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
 st.bar_chart(df_discrepancy_plot)
 
-fig1 = plt.figure(figsize=(10,4))
-sns.countplot(x='Pclass', data=df_discrepancy_plot)
-st.pyplot(fig1)
+
 
 
 
