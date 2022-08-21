@@ -90,9 +90,10 @@ st.markdown('---')
 
 df_discrepancy_plot = df_discrepancy.groupby("Retail_Product_Name").sum()
 df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
-st.bar_chart(df_discrepancy_plot)
+st.bar_chart(df_discrepancy_plot, "Retail_Product_Name", "Values")
 
-st.bar_chart(f_discrepancy_plot.plot.barh(stacked=True))
+
+
 
 
 
