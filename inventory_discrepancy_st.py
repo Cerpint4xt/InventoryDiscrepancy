@@ -80,6 +80,16 @@ df_discrepancy["UnitLevelAccuracy"] = ((df_discrepancy["Retail_SOHQTY"] - df_dis
 df_discrepancy["UnitLevelAccuracy"].replace([np.inf, -np.inf], np.nan, inplace=True)
 df_discrepancy["UnitLevelAccuracy"] = df_discrepancy["UnitLevelAccuracy"].fillna(0)
 
+col1, col2= st.columns(2)
+
+with col1:
+    st.header("Total Unders")
+    st.write(df_discrepancy["Unders"].sum())
+
+with col2:
+    st.header("Total Overs")
+    st.write(df_discrepancy["Overs"].sum())
+    
 
 st.markdown('---')
 if st.checkbox('Show data frame Discrepancy with Accuracy Calculation'):
