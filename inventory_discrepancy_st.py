@@ -25,11 +25,11 @@ st.markdown('---')
 data_expected = load_data(DATA_URL_expected)
 data_counted = load_data(DATA_URL_counted)
 
-if st.checkbox('Show raw data expected :arrow_down_small:'):
+if st.checkbox('Show raw data expected'):
     st.subheader('Raw data expected')
     st.write(data_expected)
 
-if st.checkbox('Show raw data counted :arrow_down_small:'):
+if st.checkbox('Show raw data counted'):
     st.subheader('Raw data counted')
     st.write(data_counted)
 
@@ -65,7 +65,7 @@ df_discrepancy_enriched = df_discrepancy.groupby("Retail_Product_Name").sum()
 
 
 if st.checkbox('Show data frame Discrepancy'):
-    st.subheader('Data discrepancy with Match, Unders, Overs :arrow_down_small:')
+    st.subheader('Data discrepancy with Match, Unders, Overs')
     st.write(df_discrepancy_enriched)
 
 df_discrepancy["SKUAccuracy"] = (df_discrepancy["Match"] / df_discrepancy["Retail_SOHQTY"]) * 100
@@ -82,14 +82,17 @@ df_discrepancy["UnitLevelAccuracy"] = df_discrepancy["UnitLevelAccuracy"].fillna
 
 
 st.markdown('---')
-if st.checkbox('Show data frame Discrepancy with Accuracy Calculation :arrow_down_small:'):
+if st.checkbox('Show data frame Discrepancy with Accuracy Calculation'):
     st.subheader('Data discrepancy with Match, Unders, Overs, SKUAccuracy, ItemAccuracy, UnitLevelAccuracy')
     st.dataframe(df_discrepancy.groupby("Retail_Product_Name").sum())
 
 st.markdown('---')
+
 df_discrepancy_plot = df_discrepancy.groupby("Retail_Product_Name").sum()
 df_discrepancy_plot = df_discrepancy_plot[['Diff','Unders', 'Overs', 'Match']]
 st.bar_chart(df_discrepancy_plot)
+
+st. bar_chart(f_discrepancy_plot.plot.barh(stacked=True))
 
 
 
