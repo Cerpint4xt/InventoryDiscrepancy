@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import time
 
+pd.set_option('display.precision', 1)
+
 
 st.title(':bar_chart: Inventory Discrepancy')
 
@@ -59,4 +61,19 @@ df_discrepancy_enriched = df_discrepancy.groupby("Retail_Product_Name").sum()
 if st.checkbox('Show data frame Discrepancy'):
     st.subheader('Data discrepancy with Match, Unders, Overs')
     st.write(df_discrepancy_enriched)
+
+df_discrepancy["SKUAccuracy"] = (df_discrepancy["Match"] / df_discrepancy["Retail_SOHQTY"]) * 100
+df_discrepancy["SKUAccuracy"].replace([np.inf, -np.inf], np.nan, inplace=True)
+df_discrepancy["SKUAccuracy"] = df_discrepancy["SKUAccuracy"].fillna(0)
+
+df_discrepancy["ItemAccuracy"] = (df_discrepancy["Retail_CCQTY"] / df_discrepancy["Retail_SOHQTY"]) * 100
+df_discrepancy["ItemAccuracy"].replace([np.inf, -np.inf], np.nan, inplace=True)
+df_discrepancy["ItemAccuracy"] = df_discrepancy["ItemAccuracy"].fillna(0)
+
+df_discrepancy["UnitLevelAccuracy"] = ((df_discrepancy["Retail_SOHQTY"] - df_discrepancy["Unders"] - df_discrepancy["Overs"]) / df_discrepancy["Retail_SOHQTY"]) * 100
+df_discrepancy["UnitLevelAccuracy"].replace([np.inf, -np.inf], np.nan, inplace=True)
+df_discrepancy["UnitLevelAccuracy"] = df_discrepancy["UnitLevelAccuracy"].fillna(0)
+
+st.dataframe(df_discrepancy.groupby("Retail_Product_Name").sum())
+
 
