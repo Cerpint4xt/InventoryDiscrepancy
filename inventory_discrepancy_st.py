@@ -10,7 +10,6 @@ DATA_URL_expected = ("https://storage.googleapis.com/mojix-devops-wildfire-bucke
 
 DATA_URL_counted = ("https://storage.googleapis.com/mojix-devops-wildfire-bucket/analytics/bootcamp_2_0/Bootcamp_DataAnalysis_Counted.csv")
 
-@st.cache
 def load_data(url):
     with st.spinner(text='In progress'):
         data = pd.read_csv(url, encoding="latin-1", dtype=str)
