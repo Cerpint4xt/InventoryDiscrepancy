@@ -36,6 +36,8 @@ df_B = df_counted.groupby("Retail_Product_SKU").count()[["RFID"]].reset_index().
 
 my_col_selected = ["Retail_Product_Name",
                    "Retail_SOHQTY"]
+
+df_expected = data_expected
 df_A = df_expected[my_col_selected]
 
 
